@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quest</title>
+</head>
+
+<body>
+    <style>
+        @font-face {
+            font-family: "Azeroth";
+            src: url(fonts/azerothcyrillic.ttf);
+        }
+        
+        body {
+            background-color: #181a1b;
+        }
+        
+        #scrollbar-style::-webkit-scrollbar {
+            width: 38px;
+            background-color: #0d0f0d;
+        }
+        
+        #scrollbar-style::-webkit-scrollbar-thumb {
+            background-image: url(images/Слой\ 6.png);
+            background-size: 30px 30px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            height: 16px;
+            width: 20px;
+        }
+        
+        #scrollbar-style::-webkit-scrollbar-button {
+            background-color: #565046;
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-position: center center;
+            height: 30px;
+            width: 1em;
+            -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+        
+        #scrollbar-style::-webkit-scrollbar-button:horizontal:increment {
+            background-image: url(https://dl.dropboxusercontent.com/u/55165267/icon2.png);
+        }
+        
+        #scrollbar-style::-webkit-scrollbar-button:end:increment {
+            background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDQwNC4zMDggNDA0LjMwOSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNDA0LjMwOCA0MDQuMzA5OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTAsMTAxLjA4aDQwNC4zMDhMMjAyLjE1MSwzMDMuMjI5TDAsMTAxLjA4eiIgZmlsbD0iIzAwMDAwMCIvPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+CjxnPgo8L2c+Cjwvc3ZnPgo=);
+        }
+        
+        #scrollbar-style::-webkit-scrollbar-button:start:decrement {
+            background-image: url(data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjE2cHgiIGhlaWdodD0iMTZweCIgdmlld0JveD0iMCAwIDI1NSAyNTUiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI1NSAyNTU7IiB4bWw6c3BhY2U9InByZXNlcnZlIj4KPGc+Cgk8ZyBpZD0iYXJyb3ctZHJvcC11cCI+CgkJPHBvbHlnb24gcG9pbnRzPSIwLDE5MS4yNSAxMjcuNSw2My43NSAyNTUsMTkxLjI1ICAgIiBmaWxsPSIjMDAwMDAwIi8+Cgk8L2c+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==)
+        }
+        
+        .window {
+            border: 1px solid rgb(118, 109, 97);
+            background-color: rgb(17, 18, 19);
+            border-radius: 10px;
+            width: 520px;
+            height: 650px;
+            margin-top: 70px;
+        }
+        
+        .footer {
+            background-image: url(images/Слой\ 5.png);
+            background-size: cover;
+            height: 40px;
+            margin-top: -20px;
+            bottom: 0px;
+            max-width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .header {
+            background-image: url(images/Слой\ 4.png);
+            background-size: cover;
+            height: 137px;
+            width: 536px;
+            right: 100px;
+            margin-right: -123px;
+            overflow: visible;
+            z-index: 99;
+            margin-left: -17px;
+            margin-top: -29px;
+        }
+        
+        .frame {
+            height: 500px;
+            /* width: 450px; */
+            width: 92%;
+            margin: 15px auto;
+            margin-top: -20px !important;
+            padding: 10px;
+            border: 2px solid #4a4539;
+            border-radius: 4px;
+            background-image: url(images/Слой\ 2.png);
+            background-size: cover;
+            overflow-y: scroll;
+            font-family: "Azeroth";
+            color: #191414;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 650px;
+        }
+        
+        .accept,
+        .decline {
+            /* float: right; */
+            background-image: url(images/Слой\ 3.png);
+            background-size: cover;
+            border-radius: 8px;
+            color: #f4c300;
+            cursor: pointer;
+            width: 108px;
+            height: 30px;
+            font-size: 16px;
+            font-family: "Azeroth";
+            margin: 8px;
+            line-height: 34px;
+        }
+        
+        .profile-image {
+            margin-left: 9px;
+            margin-top: 12px;
+            border-radius: 50%;
+        }
+        
+        .npc-name {
+            color: #f4c300;
+            font-size: 18px;
+            font-family: "Azeroth";
+            margin-left: 289px;
+            margin-top: -65px;
+        }
+        
+        .text-in {
+            min-height: 800px;
+        }
+    </style>
+
+    <div class="container">
+        <div class="window">
+            <div class="header">
+                <img class="profile-image" src="images/photo_2023-01-02_11-56-09.jpg" alt="" width="85" height="85">
+
+                <h1 class="npc-name">Zuewjj</h1>
+            </div>
+
+            <div class="frame" id="scrollbar-style">
+                <div class="text-in">
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+
+                    <p class="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nesciunt cupiditate, mollitia laborum, quam eaque vero maxime maiores consequuntur rem perferendis et nulla explicabo, eum quidem. Rem voluptatem dolorum eius. Officia, autem!
+                        Quod qui cupiditate praesentium sequi, molestias eum autem alias beatae voluptates numquam? Porro possimus iste dolor minima, sapiente itaque quisquam ex obcaecati assumenda. Beatae natus consequuntur pariatur voluptate maxime
+                        possimus enim, eveniet porro eaque iste mollitia, eligendi quis soluta qui alias, aliquid sit ab necessitatibus delectus doloremque tempore. Aliquid, eligendi saepe delectus qui non soluta tempore reprehenderit obcaecati ea voluptate
+                        a cumque adipisci iste at dolores laudantium incidunt provident?</p>
+                </div>
+            </div>
+
+            <div class="footer">
+                <!-- <div class="buttons"> -->
+                <button class="accept">Accept</button>
+                <button class="decline">Deny</button>
+                <!-- </div> -->
+            </div>
+
+        </div>
+
+    </div>
+
+
+</body>
+
+</html>
